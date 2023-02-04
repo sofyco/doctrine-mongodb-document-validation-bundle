@@ -36,7 +36,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
         $this->context
             ->buildViolation($constraint->message)
             ->atPath(\strval(\array_key_first($criteria)))
-            ->setParameter('{{ values }}', \json_encode($criteria))
+            ->setParameter('{{ values }}', \json_encode($criteria, \JSON_THROW_ON_ERROR))
             ->addViolation();
     }
 
