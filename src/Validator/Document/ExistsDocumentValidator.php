@@ -36,7 +36,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
         $this->context
             ->buildViolation($constraint->message)
             ->atPath(\strval(\array_key_first($criteria)))
-            ->setParameter('{{ values }}', \implode(', ', $criteria))
+            ->setParameter('{{ values }}', \json_encode($criteria))
             ->addViolation();
     }
 
@@ -60,11 +60,18 @@ final class ExistsDocumentValidator extends ConstraintValidator
     private function isExistsDocument(string $documentName, array $criteria): bool
     {
         $queryBuilder = $this->dm->createQueryBuilder($documentName)->count();
+        $expectedCount = 1;
 
         foreach ($criteria as $field => $value) {
-            $queryBuilder->field($field)->equals($value);
+            if (\is_array($value)) {
+                $expectedCount = \count($value);
+
+                $queryBuilder->field($field)->in($value);
+            } else {
+                $queryBuilder->field($field)->equals($value);
+            }
         }
 
-        return (bool) $queryBuilder->getQuery()->execute();
+        return $expectedCount === $queryBuilder->getQuery()->execute();
     }
 }
