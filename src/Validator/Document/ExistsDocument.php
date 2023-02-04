@@ -11,8 +11,8 @@ final class ExistsDocument extends Constraint
     public string $message = 'validation.document.not_found';
     public string $className;
 
-    public function getTargets(): array
+    public function getTargets(): string
     {
-        return [self::CLASS_CONSTRAINT];
+        return self::CLASS_CONSTRAINT;
     }
 }

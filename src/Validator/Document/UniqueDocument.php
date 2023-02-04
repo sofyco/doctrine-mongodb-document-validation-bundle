@@ -4,15 +4,15 @@ namespace Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Docu
 
 use Symfony\Component\Validator\Constraint;
 
-#[\Attribute]
+#[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 final class UniqueDocument extends Constraint
 {
     public array $fields = [];
     public string $message = 'validation.document.exists';
     public string $className;
 
-    public function getTargets(): array
+    public function getTargets(): string
     {
-        return [self::CLASS_CONSTRAINT];
+        return self::CLASS_CONSTRAINT;
     }
 }

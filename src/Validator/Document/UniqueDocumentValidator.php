@@ -90,17 +90,17 @@ final class UniqueDocumentValidator extends ConstraintValidator
         return \implode(', ', \array_map(fn($document) => $this->getDocumentId($document), $criteria));
     }
 
-    private function getDocumentId(object|string $document): ?string
+    private function getDocumentId(mixed $document): ?string
     {
         if (\is_string($document)) {
             return $document;
         }
 
-        if (isset($document->id)) {
+        if (\is_object($document) && isset($document->id)) {
             return $document->id;
         }
 
-        if (\method_exists($document, 'getId')) {
+        if (\is_object($document) && \method_exists($document, 'getId')) {
             return $document->getId();
         }
 
