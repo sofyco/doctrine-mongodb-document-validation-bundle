@@ -2,6 +2,9 @@
 
 namespace Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Tests\App;
 
+use Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle;
+use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\DocumentValidationBundle;
+use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
@@ -11,9 +14,9 @@ final class Kernel extends \Symfony\Component\HttpKernel\Kernel
 
     public function registerBundles(): iterable
     {
-        yield new \Symfony\Bundle\FrameworkBundle\FrameworkBundle();
-        yield new \Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle();
-        yield new \Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\DocumentValidationBundle();
+        yield new FrameworkBundle();
+        yield new DoctrineMongoDBBundle();
+        yield new DocumentValidationBundle();
     }
 
     protected function configureContainer(ContainerConfigurator $container): void
