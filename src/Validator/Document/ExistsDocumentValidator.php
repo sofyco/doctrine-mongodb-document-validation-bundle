@@ -50,7 +50,11 @@ final class ExistsDocumentValidator extends ConstraintValidator
             }
 
             if ($value = $dto->{$property}) {
-                $criteria[$field] = \preg_match('#^\d+$#', (string) $value) ? (int) $value : $value;
+                if (!$value instanceof \UnitEnum && \preg_match('#^\d+$#', (string) $value)) {
+                    $criteria[$field] = (int) $value;
+                } else {
+                    $criteria[$field] = $value;
+                }
             }
         }
 
