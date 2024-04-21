@@ -66,7 +66,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
                 $value = $dto->{$field} ?? null;
             }
 
-            $criteria[$field] = \preg_match('#^\d+$#', $value) ? (int) $value : $value;
+            $criteria[$field] = \preg_match('#^\d+$#', (string) $value) ? (int) $value : $value;
         }
 
         return $criteria;
