@@ -50,7 +50,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
             }
 
             if ($value = $dto->{$property}) {
-                $criteria[$field] = \is_numeric($value) ? (int) $value : $value;
+                $criteria[$field] = \preg_match('#^\d+$#', $value) ? (int) $value : $value;
             }
         }
 

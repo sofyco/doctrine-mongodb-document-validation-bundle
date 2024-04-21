@@ -20,6 +20,17 @@ final class ExistsDocumentValidatorTest extends KernelTestCase
         self::assertSame(0, $constraintViolationList->count());
     }
 
+    public function testDocumentExistsWithStringFieldLikeNumber(): void
+    {
+        self::getDocumentManager()->getDocumentDatabase(Product::class)->drop();
+        self::getDocumentManager()->persist(new Product(sku: '66226828401e131804016725', name: 'product-1'));
+        self::getDocumentManager()->flush();
+
+        $constraintViolationList = self::getValidator()->validate(new Product(sku: '66226828401e131804016725', name: 'product-2'));
+
+        self::assertSame(0, $constraintViolationList->count());
+    }
+
     public function testDocumentNotExists(): void
     {
         self::getDocumentManager()->getDocumentDatabase(Product::class)->drop();
