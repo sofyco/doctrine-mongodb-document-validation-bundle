@@ -66,7 +66,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
                 $value = $dto->{$field} ?? null;
             }
 
-            if (!$value instanceof \UnitEnum && \preg_match('#^\d+$#', (string) $value)) {
+            if (\is_string($value) && \preg_match('#^\d+$#', $value) && (int) $value !== \PHP_INT_MAX) {
                 $criteria[$field] = (int) $value;
             } else {
                 $criteria[$field] = $value;
