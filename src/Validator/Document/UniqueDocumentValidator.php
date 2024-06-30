@@ -19,7 +19,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
             throw new Exception\UnexpectedTypeException($constraint, UniqueDocument::class);
         }
 
-        if (!\is_object($value)) {
+        if (!is_object($value)) {
             return;
         }
 
@@ -30,7 +30,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
         }
 
         if (isset($criteria['id'])) {
-            if (\is_object($criteria['id']) && \method_exists($criteria['id'], 'getId')) {
+            if (is_object($criteria['id']) && method_exists($criteria['id'], 'getId')) {
                 $sourceId = $criteria['id']->getId();
             } else {
                 $sourceId = $criteria['id'];
@@ -47,9 +47,15 @@ final class UniqueDocumentValidator extends ConstraintValidator
             return;
         }
 
+        if (is_string(array_key_first($constraint->fields))) {
+            $path = array_key_first($constraint->fields);
+        } else {
+            $path = current($constraint->fields);
+        }
+
         $this->context
             ->buildViolation($constraint->message)
-            ->atPath(\strval(\array_key_first($criteria)))
+            ->atPath(strval($path))
             ->setParameter('{{ values }}', $this->getViolationParameters($criteria))
             ->addViolation();
     }
@@ -59,14 +65,13 @@ final class UniqueDocumentValidator extends ConstraintValidator
         $criteria = [];
 
         foreach ($constraint->fields as $property => $field) {
-            if (\is_string($property)) {
-                $field = $property;
+            if (is_string($property)) {
                 $value = $dto->{$property} ?? $property;
             } else {
                 $value = $dto->{$field} ?? null;
             }
 
-            if (\is_string($value) && \preg_match('#^\d+$#', $value) && (int) $value !== \PHP_INT_MAX) {
+            if (is_string($value) && preg_match('#^\d+$#', $value) && (int) $value !== \PHP_INT_MAX) {
                 $criteria[$field] = (int) $value;
             } else {
                 $criteria[$field] = $value;
@@ -86,25 +91,25 @@ final class UniqueDocumentValidator extends ConstraintValidator
 
         $document = $queryBuilder->getQuery()->getSingleResult();
 
-        return \is_object($document) ? $this->getDocumentId($document) : null;
+        return is_object($document) ? $this->getDocumentId($document) : null;
     }
 
     private function getViolationParameters(array $criteria): string
     {
-        return \implode(', ', \array_map(fn($document) => $this->getDocumentId($document), $criteria));
+        return implode(', ', array_map(fn($document) => $this->getDocumentId($document), $criteria));
     }
 
     private function getDocumentId(mixed $document): ?string
     {
-        if (\is_string($document)) {
+        if (is_string($document)) {
             return $document;
         }
 
-        if (\is_object($document) && isset($document->id)) {
+        if (is_object($document) && isset($document->id)) {
             return $document->id;
         }
 
-        if (\is_object($document) && \method_exists($document, 'getId')) {
+        if (is_object($document) && method_exists($document, 'getId')) {
             return $document->getId();
         }
 
