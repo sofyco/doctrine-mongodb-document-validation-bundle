@@ -40,7 +40,7 @@ final class UniqueDocumentValidatorTest extends KernelTestCase
         $constraintViolationList = self::getValidator()->validate(new Product(sku: '0000-0000', name: 'product-1'));
 
         self::assertSame(1, $constraintViolationList->count());
-        self::assertSame('validation.document.exists', $constraintViolationList->get(0)->getMessage());
+        self::assertSame('document.exists', $constraintViolationList->get(0)->getMessage());
     }
 
     private static function getValidator(): ValidatorInterface

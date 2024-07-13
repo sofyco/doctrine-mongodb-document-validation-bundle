@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 final class UniqueDocument extends Constraint
 {
     public array $fields = [];
-    public string $message = 'validation.document.exists';
+    public string $message = 'document.exists';
     public string $className;
 
     public function getTargets(): string
