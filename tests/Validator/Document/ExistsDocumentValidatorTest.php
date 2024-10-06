@@ -40,7 +40,7 @@ final class ExistsDocumentValidatorTest extends KernelTestCase
         $constraintViolationList = self::getValidator()->validate(new Product(sku: '0000-0001', name: 'product-2'));
 
         self::assertSame(1, $constraintViolationList->count());
-        self::assertSame('validation.document.not_found', $constraintViolationList->get(0)->getMessage());
+        self::assertSame('document.not_found', $constraintViolationList->get(0)->getMessage());
     }
 
     private static function getValidator(): ValidatorInterface

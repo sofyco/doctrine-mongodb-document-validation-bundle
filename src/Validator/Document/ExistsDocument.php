@@ -8,7 +8,7 @@ use Symfony\Component\Validator\Constraint;
 final class ExistsDocument extends Constraint
 {
     public array $fields = [];
-    public string $message = 'validation.document.not_found';
+    public string $message = 'document.not_found';
     public string $className;
 
     public function getTargets(): string
