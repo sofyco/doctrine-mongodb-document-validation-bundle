@@ -2,6 +2,7 @@
 
 namespace Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\DependencyInjection;
 
+use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Document\CurrentUserRelationValidator;
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Document\ExistsDocumentValidator;
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Document\UniqueDocumentValidator;
 use Symfony\Component\DependencyInjection\ContainerBuilder;
@@ -21,5 +22,10 @@ final class DocumentValidationExtension extends Extension
         $uniqueDocumentValidator->setAutowired(true);
         $uniqueDocumentValidator->addTag('validator.constraint_validator');
         $container->setDefinition(UniqueDocumentValidator::class, $uniqueDocumentValidator);
+
+        $currentUserRelationValidator = new Definition(CurrentUserRelationValidator::class);
+        $currentUserRelationValidator->setAutowired(true);
+        $currentUserRelationValidator->addTag('validator.constraint_validator');
+        $container->setDefinition(CurrentUserRelationValidator::class, $currentUserRelationValidator);
     }
 }

@@ -2,7 +2,6 @@
 
 namespace Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Tests\Validator\Document;
 
-use Doctrine\ODM\MongoDB\DocumentManager;
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Tests\App\Document\Order;
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Tests\App\Document\User;
 use Symfony\Bundle\FrameworkBundle\Test\KernelTestCase;

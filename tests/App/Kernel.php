@@ -6,6 +6,7 @@ use Doctrine\Bundle\MongoDBBundle\DoctrineMongoDBBundle;
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\DocumentValidationBundle;
 use Symfony\Bundle\FrameworkBundle\FrameworkBundle;
 use Symfony\Bundle\FrameworkBundle\Kernel\MicroKernelTrait;
+use Symfony\Bundle\SecurityBundle\SecurityBundle;
 use Symfony\Component\DependencyInjection\Loader\Configurator\ContainerConfigurator;
 
 final class Kernel extends \Symfony\Component\HttpKernel\Kernel
@@ -16,6 +17,7 @@ final class Kernel extends \Symfony\Component\HttpKernel\Kernel
     {
         yield new FrameworkBundle();
         yield new DoctrineMongoDBBundle();
+        yield new SecurityBundle();
         yield new DocumentValidationBundle();
     }
 
@@ -40,6 +42,20 @@ final class Kernel extends \Symfony\Component\HttpKernel\Kernel
                             'prefix' => __NAMESPACE__ . '\Document',
                         ],
                     ],
+                ],
+            ],
+        ]);
+
+        $container->extension('security', [
+            'providers' => [
+                'users_in_memory' => [
+                    'memory' => null,
+                ],
+            ],
+            'firewalls' => [
+                'main' => [
+                    'lazy' => true,
+                    'provider' => 'users_in_memory',
                 ],
             ],
         ]);
