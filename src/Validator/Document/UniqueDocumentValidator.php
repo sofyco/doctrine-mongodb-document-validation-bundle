@@ -50,7 +50,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
         if (is_string(array_key_last($constraint->fields))) {
             $path = array_key_last($constraint->fields);
         } else {
-            $path = current($constraint->fields);
+            $path = end($constraint->fields);
         }
 
         $this->context
