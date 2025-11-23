@@ -63,6 +63,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
     private function getCriteria(object $dto, UniqueDocument $constraint): array
     {
         $criteria = [];
+        $classMetadata = $this->dm->getClassMetadata($constraint->className);
 
         foreach ($constraint->fields as $property => $field) {
             if (is_string($property)) {
@@ -71,7 +72,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
                 $value = $dto->{$field} ?? null;
             }
 
-            if (is_string($value) && preg_match('#^\d+$#', $value) && (int) $value !== \PHP_INT_MAX) {
+            if ($classMetadata->getFieldMapping($field)['type'] === 'int') {
                 $criteria[$field] = (int) $value;
             } else {
                 $criteria[$field] = $value;

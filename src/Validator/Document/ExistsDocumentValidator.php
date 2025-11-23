@@ -43,6 +43,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
     private function getCriteria(object $dto, ExistsDocument $constraint): array
     {
         $criteria = [];
+        $classMetadata = $this->dm->getClassMetadata($constraint->className);
 
         foreach ($constraint->fields as $property => $field) {
             if (\is_numeric($property)) {
@@ -50,7 +51,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
             }
 
             if ($value = $dto->{$property}) {
-                if (\is_string($value) && \preg_match('#^\d+$#', $value) && (int) $value !== \PHP_INT_MAX) {
+                if ($classMetadata->getFieldMapping($field)['type'] === 'int') {
                     $criteria[$field] = (int) $value;
                 } else {
                     $criteria[$field] = $value;
