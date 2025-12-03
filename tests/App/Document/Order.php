@@ -12,7 +12,7 @@ final class Order
     public string $id;
 
     #[MongoDB\ReferenceOne(storeAs: 'id', targetDocument: User::class)]
-    #[CurrentUserRelation(['className' => User::class])]
+    #[CurrentUserRelation(className: User::class)]
     public User $user;
 
     public function __construct(User $user)

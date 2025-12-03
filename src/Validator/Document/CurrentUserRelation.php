@@ -7,16 +7,11 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_PROPERTY)]
 final class CurrentUserRelation extends Constraint
 {
-    public array $roles = [];
-
-    public string $message = 'user.invalid';
-
     /**
-     * @var class-string
+     * @param class-string $className
      */
-    public string $className;
-
-    public string $identifierProperty = 'id';
-
-    public string $userProperty = 'user';
+    public function __construct(public string $className, public array $roles = [], public string $identifierProperty = 'id', public string $userProperty = 'user', public string $message = 'user.invalid')
+    {
+        parent::__construct();
+    }
 }
