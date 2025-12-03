@@ -7,8 +7,8 @@ use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Document\E
 use Sofyco\Bundle\Doctrine\MongoDB\DocumentValidationBundle\Validator\Document\UniqueDocument;
 
 #[MongoDB\Document(collection: 'products')]
-#[ExistsDocument(['fields' => ['sku'], 'className' => Product::class])]
-#[UniqueDocument(['fields' => ['name'], 'className' => Product::class])]
+#[ExistsDocument(className: Product::class, fields: ['sku'])]
+#[UniqueDocument(className: Product::class, fields: ['name'])]
 final class Product
 {
     #[MongoDB\Id]

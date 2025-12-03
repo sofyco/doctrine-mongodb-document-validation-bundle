@@ -1,6 +1,7 @@
 {
     "name": "sofyco/doctrine-mongodb-document-validation-bundle",
     "type": "symfony-bundle",
+    "version": "3.0.0",
     "description": "Doctrine ODM Validation Constraints",
     "keywords": ["php", "symfony", "bundle", "doctrine", "mongodb", "odm", "validation"],
     "homepage": "https://github.com/sofyco/doctrine-mongodb-document-validation-bundle",
@@ -12,16 +13,16 @@
         }
     ],
     "require": {
-        "php": "^8.3",
+        "php": "^8.5",
         "ext-mongodb": "*",
-        "doctrine/mongodb-odm-bundle": "^5.0",
-        "symfony/framework-bundle": "^7.0",
-        "symfony/security-bundle": "^7.0",
-        "symfony/validator": "^7.0"
+        "doctrine/mongodb-odm-bundle": "^5.5",
+        "symfony/framework-bundle": "^8.0",
+        "symfony/security-bundle": "^8.0",
+        "symfony/validator": "^8.0"
     },
     "require-dev": {
-        "phpstan/phpstan": "^1.10",
-        "phpunit/phpunit": "^10.5"
+        "phpstan/phpstan": "^2.1",
+        "phpunit/phpunit": "^12.4"
     },
     "autoload": {
         "psr-4": {

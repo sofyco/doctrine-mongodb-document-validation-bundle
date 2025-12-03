@@ -7,14 +7,14 @@ use Symfony\Component\Validator\Constraint;
 #[\Attribute(\Attribute::TARGET_CLASS | \Attribute::IS_REPEATABLE)]
 final class ExistsDocument extends Constraint
 {
-    public array $fields = [];
-
-    public string $message = 'document.not_found';
-
     /**
-     * @var class-string
+     * @param class-string $className
+     * @param array<string, string>|array<int, string> $fields
      */
-    public string $className;
+    public function __construct(public string $className, public array $fields = [], public string $message = 'document.not_found')
+    {
+        parent::__construct();
+    }
 
     public function getTargets(): string
     {

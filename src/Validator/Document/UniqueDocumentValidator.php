@@ -72,7 +72,7 @@ final class UniqueDocumentValidator extends ConstraintValidator
                 $value = $dto->{$field} ?? null;
             }
 
-            if ($classMetadata->getFieldMapping($field)['type'] === 'int') {
+            if ($classMetadata->getFieldMapping($field)['type'] === 'int' && is_numeric($value)) {
                 $criteria[$field] = (int) $value;
             } else {
                 $criteria[$field] = $value;
@@ -106,11 +106,11 @@ final class UniqueDocumentValidator extends ConstraintValidator
             return $document;
         }
 
-        if (is_object($document) && isset($document->id)) {
+        if (is_object($document) && isset($document->id) && is_string($document->id)) {
             return $document->id;
         }
 
-        if (is_object($document) && method_exists($document, 'getId')) {
+        if (is_object($document) && method_exists($document, 'getId') && is_string($document->getId())) {
             return $document->getId();
         }
 

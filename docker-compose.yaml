@@ -10,6 +10,7 @@ services:
 
     mongodb:
         image: mongo
+        platform: linux/amd64
         ports:
             - 27017:27017
         volumes:

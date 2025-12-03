@@ -9,6 +9,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class CurrentUserRelationValidatorTest extends KernelTestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        restore_exception_handler();
+    }
+
     public function testUnauthorizedUser(): void
     {
         $constraintViolationList = self::getValidator()->validate(new Order(user: new User()));

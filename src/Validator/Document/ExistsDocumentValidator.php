@@ -19,7 +19,7 @@ final class ExistsDocumentValidator extends ConstraintValidator
             throw new Exception\UnexpectedTypeException($constraint, ExistsDocument::class);
         }
 
-        if (!\is_object($value)) {
+        if (!is_object($value)) {
             return;
         }
 
@@ -35,8 +35,8 @@ final class ExistsDocumentValidator extends ConstraintValidator
 
         $this->context
             ->buildViolation($constraint->message)
-            ->atPath(\strval(\array_key_first($criteria)))
-            ->setParameter('{{ values }}', \json_encode($criteria, \JSON_THROW_ON_ERROR))
+            ->atPath(strval(array_key_first($criteria)))
+            ->setParameter('{{ values }}', json_encode($criteria, \JSON_THROW_ON_ERROR))
             ->addViolation();
     }
 
@@ -46,12 +46,12 @@ final class ExistsDocumentValidator extends ConstraintValidator
         $classMetadata = $this->dm->getClassMetadata($constraint->className);
 
         foreach ($constraint->fields as $property => $field) {
-            if (\is_numeric($property)) {
+            if (is_numeric($property)) {
                 $property = $field;
             }
 
             if ($value = $dto->{$property}) {
-                if ($classMetadata->getFieldMapping($field)['type'] === 'int') {
+                if ($classMetadata->getFieldMapping($field)['type'] === 'int' && is_numeric($value)) {
                     $criteria[$field] = (int) $value;
                 } else {
                     $criteria[$field] = $value;
@@ -68,8 +68,8 @@ final class ExistsDocumentValidator extends ConstraintValidator
         $expectedCount = 1;
 
         foreach ($criteria as $field => $value) {
-            if (\is_array($value)) {
-                $expectedCount = \count($value);
+            if (is_array($value)) {
+                $expectedCount = count($value);
 
                 $queryBuilder->field($field)->in($value);
             } else {

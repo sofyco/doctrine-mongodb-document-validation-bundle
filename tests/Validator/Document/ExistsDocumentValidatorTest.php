@@ -9,6 +9,13 @@ use Symfony\Component\Validator\Validator\ValidatorInterface;
 
 final class ExistsDocumentValidatorTest extends KernelTestCase
 {
+    protected function tearDown(): void
+    {
+        parent::tearDown();
+
+        restore_exception_handler();
+    }
+
     public function testDocumentExists(): void
     {
         self::getDocumentManager()->getDocumentDatabase(Product::class)->drop();
