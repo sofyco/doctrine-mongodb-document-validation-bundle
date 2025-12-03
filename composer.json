@@ -1,7 +1,7 @@
 {
     "name": "sofyco/doctrine-mongodb-document-validation-bundle",
     "type": "symfony-bundle",
-    "version": "3.0.0",
+    "version": "3.1.0",
     "description": "Doctrine ODM Validation Constraints",
     "keywords": ["php", "symfony", "bundle", "doctrine", "mongodb", "odm", "validation"],
     "homepage": "https://github.com/sofyco/doctrine-mongodb-document-validation-bundle",
